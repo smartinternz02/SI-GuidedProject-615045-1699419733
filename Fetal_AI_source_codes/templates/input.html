@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            text-align: center;
+            background-color: #c3f7f7;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        #logo {
+            width: 200px; 
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        #header h1 {
+            margin-left: 270px;
+            font-size: 4em;
+            text-align: center;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        #image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        #image-container img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #form-container {
+            display: inline-block;
+            text-align: left;
+            background-color: #7ef8bb;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 5px; 
+            z-index: 1;
+            position: relative;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-right: 120px;
+            margin-bottom: 15px;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        input {
+            width: 200px;
+            margin-bottom: 20px;
+            margin-right: 60px;
+            height: 30px;
+            border-radius: 15px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 100px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 270px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        input[type="reset"] {
+            background-color: #f44336;
+            color: white;
+            margin-left: 20px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #45a049;
+        }
+        #plv{
+            width:470px;
+        }
+
+    </style>
+
+    <script>
+        function validateForm() {
+            var inputs = document.querySelectorAll('input[type="number"]');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === "") {
+                    alert("Please fill in all fields before submitting.");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="header">
+        <img src="{{ url_for('static', filename='fh.png') }}" alt="Logo" id="logo">
+        <h1>FETAL HEALTH</h1>
+    </div>
+
+    <div id="form-container">
+        <form action="/predict" method="post" onsubmit="return validateForm();">
+            
+       
+        <label for="acc">Accelerations:</label>
+        <label for="ld">Light Decelerations:</label>
+        <label for="fm">Fetal Movements:</label>
+        <br>
+        <input type="number" name="acc" placeholder="Enter Accelerations">
+        <input type="number" name="ld" placeholder="Enter Light Decelerations">
+        <input type="number" name="fm" placeholder="Enter Fetal Movements">
+        <br>
+        <label for="uc">Uterus Contractions:</label>
+        <label for="asv">Abnormal Short term Variability:</label>
+        <label for="msv">Mean of Short Term Variability:</label>
+        <br>
+        <input type="number" name="uc" placeholder="Enter Uterus Contractions">
+        <input type="number" name="asv" placeholder="Enter Abnormal Short term Variability">
+        <input type="number" name="msv" placeholder="Enter Mean of Short Term Variability">
+        <br>
+        <label for="plv">Percentage of times with abnormal long term Variability:</label>
+        <br>
+        <input type="number" name="plv" placeholder="Enter Percentage">
+        <br>
+        <label for="hma">Histogram Maximum Value:</label>
+        <label for="m">Histogram Median Value:</label>
+        <label for="hn">Histogram Number of Zeros:</label>
+        <br>
+        <input type="number" name="hma" placeholder="Enter Histogram Maximum Value">
+        <input type="number" name="m" placeholder="Enter Histogram Median Value">
+        <input type="number" name="hn" placeholder="Enter Histogram Number of Zeros">
+        <br><br>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+</div>
+
+    
+
+</body>
+
+</html>

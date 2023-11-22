@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            text-align: center;
+            background-color: #c3f7f7;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        #logo {
+            width: 200px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        #header h1 {
+            margin-left: 270px;
+            font-size: 4em;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial', 'sans-serif';
+        }
+
+        #form-container {
+            display: inline-block;
+            text-align: left;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .list-container {
+            display: inline-block;
+            text-align: left;
+            padding: 15px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background-color: rgb(189, 189, 250);
+        }
+
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 100px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 270px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        input[type="reset"] {
+            background-color: #f44336;
+            color: white;
+            margin-left: 20px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #45a049;
+        }
+
+        #result-message {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        #normal-message {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* Colors based on prediction result */
+        {% if prediction == 1 %}
+            #form-container {
+                background-color: #ff4d4d; /* Red */
+            }
+        {% elif prediction == 2 %}
+            #form-container {
+                background-color: #fdff7a; /* Yellow */
+            }
+        {% elif prediction == 3 %}
+            #form-container {
+                background-color: #90ee90; /* LightGreen */
+            }
+        {% else %}
+            #form-container {
+                background-color: #cccccc; /* Gray for unexpected result */
+            }
+        {% endif %}
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <img src="{{ url_for('static', filename='fh.png') }}" alt="Logo" id="logo">
+        <h1>FETAL HEALTH</h1>
+    </div>
+
+    <div id="form-container">
+        <h1>Prediction Result</h1>
+        <div id="result-message">
+            {% if prediction == 1 %}
+                <p>The baby REQUIRES ATTENTION</p>
+                <img src="{{url_for('static',filename='baby_bad.gif')}}" alt="require attention gif" id="req_attn" height="250px">
+            {% elif prediction == 2 %}
+                <p>The baby is OK</p>
+                <img src="{{url_for('static',filename='baby_sitting.gif')}}" alt="ok gif" id="ok" height="250px">
+            {% elif prediction == 3 %}
+                <p>The baby is VERY HEALTHY</p>
+                <img src="{{url_for('static',filename='baby_dance.gif')}}" alt="very healthy gif" id="healthy" height="250px">
+            {% else %}
+                <p>Unexpected prediction result.</p>
+            {% endif %}
+        </div>
+        <br>
+        <input type="submit" value="Go Back" onclick="history.back()">
+    </div>
+
+    <h2>STEPS TO FOLLOW NOW</h2>
+    <div id="normal-message">
+        {% if prediction == 1 %}
+        <div class="list-container">
+            <ul>
+                <li>Get regular checkups and prenatal tests</li>
+                <li>Avoid harmful substances</li>
+                <li>Eat a healthy diet</li>
+                <li>Get enough rest</li>
+                <li>Take 400 micrograms of folic acid daily</li>
+                <li>Talk with your healthcare provider</li>
+            </ul>
+        </div>
+        {% elif prediction == 2 %}
+        <div class="list-container">
+            <ul>
+                <li>Get timely checkups and prenatal tests</li>
+                <li>Avoid harmful substances</li>
+                <li>Improve the present diet</li>
+                <li>Improve the present rest</li>
+                <li>Take 400 micrograms of folic acid daily</li>
+                <li>Talk with your healthcare provider</li>
+            </ul>
+        </div>
+        {% elif prediction == 3 %}
+        <div class="list-container">
+            <ul>
+                <li>Get timely checkups and tests</li>
+                <li>Maintain the present diet</li>
+                <li>Follow the present sleep schedule</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
